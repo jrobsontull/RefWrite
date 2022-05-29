@@ -1,1 +1,36 @@
-// Some styling here
+// Global resets
+
+* {
+  vertical-align: baseline;
+  font-weight: inherit;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  border: 0 none;
+  outline: 0;
+  margin: 0;
+  text-decoration: none;
+}
+
+// Font imports
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+// Global variables
+$background-color: #f1f0fe;
+$dark-grey-text: #314047;
+$primary-btn: #818cf8;
+$form-background: #f8fafc;
+$form-border: #e2e8f0;
+
+// Partial imports
+@import './partials/_create.scss';
+@import './partials/_header.scss';
+
+// Global styling
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: $background-color;
+}
