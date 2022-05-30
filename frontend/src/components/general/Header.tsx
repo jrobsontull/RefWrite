@@ -1,8 +1,12 @@
+import { useState } from 'react';
+
 import Logo from '../../assets/img/logo.svg';
 import Light from '../../assets/img/sun_icon.svg';
 import Dark from '../../assets/img/moon_icon.svg';
 
 const Header = () => {
+  const [openMore, setOpenMore] = useState(false);
+
   return (
     <header>
       <div className="branding">
@@ -13,9 +17,17 @@ const Header = () => {
         <ul className="nav">
           <li>Create</li>
           <li>Saved References</li>
-          <li>
+          <li id="more" onClick={() => setOpenMore(!openMore)}>
             More
             <div className="more-arrow" />
+            <div className="more-menu">
+              <div className="up-arrow" />
+              <div className="menu-item">Settings</div>
+              <div className="menu-item">FAQ</div>
+              <div className="menu-item" id="last-child">
+                Contact Us
+              </div>
+            </div>
           </li>
           <li>Logout</li>
         </ul>

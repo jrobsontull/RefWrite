@@ -18,6 +18,7 @@
 // Global variables
 $background-color: #f1f0fe;
 $primary-btn: #818cf8;
+$primary-btn-hover: #766df4;
 $primary-btn-dark: #4338ca;
 
 $gray-100: #f8fafc;
@@ -63,6 +64,10 @@ body {
 }
 
 .btn.primary:hover {
+  background-color: $primary-btn-hover;
+}
+
+.btn.primary.selected {
   background-color: $primary-btn-dark;
 }
 

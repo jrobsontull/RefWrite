@@ -46,11 +46,24 @@
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   background-color: #f8fafc;
-  padding: 8px 0;
+  padding: 8px 8px;
   color: #314047;
 }
 .content .left .box.general-options .input-row input::placeholder {
   color: #cbd5e1;
+}
+.content .left .box.general-options .input-row input#firstName,
+.content .left .box.general-options .input-row input#relationship {
+  width: 30%;
+  margin-right: 6px;
+}
+.content .left .box.general-options .input-row input#job,
+.content .left .box.general-options .input-row input#organisation {
+  width: 70%;
+  margin-left: 6px;
+}
+.content .left .box.generation-settings {
+  margin-bottom: 20px;
 }
 .content .left .box.generation-settings h3 {
   font-weight: 500;
@@ -60,16 +73,37 @@
 .content .left .box.generation-settings .btn-row {
   display: flex;
   justify-content: center;
+  max-width: 300px;
+  margin: 0 auto 14px auto;
 }
 .content .left .box.generation-settings .btn-row .btn {
   padding: 10px 30px;
   font-size: 15px;
+  width: 50%;
 }
 .content .left .box.generation-settings .btn-row .btn#simple {
   margin-right: 5px;
 }
 .content .left .box.generation-settings .btn-row .btn#custom {
   margin-left: 5px;
+}
+.content .left .box.generation-settings .simple-opts {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+}
+.content .left .box.generation-settings .simple-opts select.reference-type {
+  margin-bottom: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  padding: 8px 8px;
+  color: #314047;
+}
+.content .left .box.generation-settings .simple-opts div.btn {
+  font-size: 15px;
 }
 .content .right {
   flex: 50%;
@@ -99,6 +133,13 @@
   border: 1px solid #e2e8f0;
   padding: 25px;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+}
+.content .right .preview-pane .preview h2 {
+  font-weight: 500;
+  font-size: 18px;
+  color: #314047;
+  text-align: center;
+  padding: 160px 0;
 }
 .content .right .preview-pane .preview p {
   margin-bottom: 10px;
@@ -150,8 +191,50 @@ header .nav-action ul li .more-arrow {
   border-right: 5px solid transparent;
   border-top: 8px solid #314047;
 }
+header .nav-action ul li .more-menu {
+  display: none;
+  position: absolute;
+  background-color: #f8fafc;
+  width: 150px;
+  top: 34px;
+  left: -52px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+}
+header .nav-action ul li .more-menu .up-arrow {
+  position: absolute;
+  margin-left: 67px;
+  top: -8px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 8px solid #e2e8f0;
+  z-index: 1;
+}
+header .nav-action ul li .more-menu .menu-item {
+  z-index: 2;
+  padding: 12px 30px;
+  border: 1px solid #e2e8f0;
+  border-width: 0 0 1px 0;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+header .nav-action ul li .more-menu .menu-item#last-child {
+  border-width: 0;
+}
+header .nav-action ul li .more-menu .menu-item:hover {
+  cursor: pointer;
+  background-color: #f1f5f9;
+}
 header .nav-action ul li:hover {
   cursor: pointer;
+}
+header .nav-action ul li#more {
+  position: relative;
+}
+header .nav-action ul li#more:hover .more-menu {
+  display: block;
 }
 header .nav-action .theme-toggle {
   margin: 0 24px 0 16px;
@@ -236,6 +319,10 @@ body {
 }
 
 .btn.primary:hover {
+  background-color: #766df4;
+}
+
+.btn.primary.selected {
   background-color: #4338ca;
 }
 

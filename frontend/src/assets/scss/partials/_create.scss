@@ -35,17 +35,31 @@
           border: 1px solid $gray-300;
           border-radius: $border-radius;
           background-color: $gray-100;
-          padding: 8px 0;
+          padding: 8px 8px;
           color: $gray-800;
         }
 
         input::placeholder {
           color: $gray-400;
         }
+
+        input#firstName,
+        input#relationship {
+          width: 30%;
+          margin-right: 6px;
+        }
+
+        input#job,
+        input#organisation {
+          width: 70%;
+          margin-left: 6px;
+        }
       }
     }
 
     .box.generation-settings {
+      margin-bottom: 20px;
+
       h3 {
         font-weight: 500;
         text-align: center;
@@ -55,10 +69,13 @@
       .btn-row {
         display: flex;
         justify-content: center;
+        max-width: 300px;
+        margin: 0 auto 14px auto;
 
         .btn {
           padding: 10px 30px;
           font-size: 15px;
+          width: 50%;
         }
 
         .btn#simple {
@@ -67,6 +84,27 @@
 
         .btn#custom {
           margin-left: 5px;
+        }
+      }
+
+      .simple-opts {
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+
+        select.reference-type {
+          margin-bottom: 14px;
+          border: 1px solid $gray-300;
+          border-radius: $border-radius;
+          background-color: $gray-100;
+          padding: 8px 8px;
+          color: $gray-800;
+        }
+
+        div.btn {
+          font-size: 15px;
         }
       }
     }
@@ -104,6 +142,14 @@
         border: 1px solid $gray-300;
         padding: 25px;
         box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+
+        h2 {
+          font-weight: 500;
+          font-size: 18px;
+          color: $gray-800;
+          text-align: center;
+          padding: 160px 0;
+        }
 
         p {
           margin-bottom: 10px;
