@@ -17,10 +17,19 @@
 
 // Global variables
 $background-color: #f1f0fe;
-$dark-grey-text: #314047;
 $primary-btn: #818cf8;
-$form-background: #f8fafc;
-$form-border: #e2e8f0;
+$primary-btn-dark: #4338ca;
+
+$gray-100: #f8fafc;
+$gray-200: #f1f5f9;
+$gray-300: #e2e8f0;
+$gray-400: #cbd5e1;
+$gray-500: #64748b;
+$gray-600: #475569;
+$gray-700: #334155;
+$gray-800: #314047;
+
+$border-radius: 6px;
 
 // Partial imports
 @import './partials/_create.scss';
@@ -33,4 +42,35 @@ $form-border: #e2e8f0;
 
 body {
   background-color: $background-color;
+}
+
+.btn {
+  font-size: 16px;
+  padding: 12px 36px;
+  border-radius: $border-radius;
+  font-weight: 300;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn.primary {
+  background-color: $primary-btn;
+  color: $gray-100;
+}
+
+.btn.primary:hover {
+  background-color: $primary-btn-dark;
+}
+
+.box {
+  background-color: #fff;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+  border-radius: $border-radius;
+  color: $gray-800;
+  font-size: 15px;
+  padding: 24px;
 }

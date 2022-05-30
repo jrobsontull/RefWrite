@@ -7,9 +7,12 @@ const Create = () => {
       <Header />
       <div className="content">
         <div className="left">
-          <input placeholder="Write reference title here..." />
-          <div className="box">
-            <p>
+          <input
+            className="title"
+            placeholder="Write reference title here..."
+          />
+          <div className="box general-options">
+            <p className="description">
               Use this section to fill out general information about the
               reference. We need the name of the person you are writing the
               reference for, the organisation they worked for and your
@@ -24,13 +27,27 @@ const Create = () => {
               <input placeholder="Organisation" />
             </div>
           </div>
-          <div className="box">
+          <div className="box generation-settings">
             <h3>Which mode would you like to use?</h3>
-            <div className="btn primary">Simple</div>
-            <div className="btn primary">Custom</div>
+            <div className="btn-row">
+              <div className="btn primary" id="simple">
+                Simple
+              </div>
+              <div className="btn primary" id="custom">
+                Custom
+              </div>
+            </div>
           </div>
         </div>
         <div className="right">
+          <div className="action-btns">
+            <div className="btn primary" id="save-changes">
+              Save changes
+            </div>
+            <div className="btn primary" id="download-pdf">
+              Download PDF
+            </div>
+          </div>
           <div className="preview-pane">
             <div className="preview">
               <p>To whom it may concern,</p>
