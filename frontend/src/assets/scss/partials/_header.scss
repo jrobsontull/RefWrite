@@ -57,17 +57,17 @@ header {
           border: 1px solid $gray-300;
           box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
 
-          .up-arrow {
-            position: absolute;
-            margin-left: 67px;
-            top: -8px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 8px solid $gray-300;
-            z-index: 1;
-          }
+          // .up-arrow {
+          //   position: absolute;
+          //   margin-left: 67px;
+          //   top: -8px;
+          //   width: 0;
+          //   height: 0;
+          //   border-left: 10px solid transparent;
+          //   border-right: 10px solid transparent;
+          //   border-bottom: 8px solid $gray-300;
+          //   z-index: 1;
+          // }
 
           .menu-item {
             z-index: 2;

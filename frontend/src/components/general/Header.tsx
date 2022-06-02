@@ -21,7 +21,6 @@ const Header = () => {
             More
             <div className="more-arrow" />
             <div className="more-menu">
-              <div className="up-arrow" />
               <div className="menu-item">Settings</div>
               <div className="menu-item">FAQ</div>
               <div className="menu-item" id="last-child">

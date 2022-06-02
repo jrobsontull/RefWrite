@@ -1,30 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../general/Header';
+import GenerateAPI from '../../utils/generate.api';
+
+import AddBlock from '../../assets/img/add_block_icon.svg';
+import { AxiosResponse } from 'axios';
 
 const Create = () => {
-  // Form states
-  const [openSimpleGenerate, setOpenSimpleOpts] = useState(false);
-  const [openCustomGenerate, setOpenCustomOpts] = useState(false);
+  // Available prompts
+  const [prompts, setPrompts] = useState([]);
 
-  // Store for preview window
+  // Form states
+  const [openSimpleOpts, setOpenSimpleOpts] = useState(false);
+  const [openCustomGenerate, setOpenCustomGenerate] = useState(false);
+  const [openSimpleGenerate, setOpenSimpleGenerate] = useState(false);
+
+  // Store for preview panel
   const [preview, setPreview] = useState([]);
 
-  // Toggle openning of prompt windows
+  // Toggle openning of prompt panels
   const toggleOptsDialog: Function = (openGen: string) => {
-    if (openGen === 'simple' && !openSimpleGenerate) {
+    if (openGen === 'simple' && !openSimpleOpts) {
       // Open simple options
       if (openCustomGenerate) {
-        setOpenCustomOpts(false);
+        setOpenCustomGenerate(false);
       }
       setOpenSimpleOpts(true);
     } else if (openGen === 'custom' && !openCustomGenerate) {
       // Open custom options
-      if (openSimpleGenerate) {
+      if (openSimpleOpts) {
         setOpenSimpleOpts(false);
+        setOpenSimpleGenerate(false);
       }
-      setOpenCustomOpts(true);
+      setOpenCustomGenerate(true);
     }
   };
+
+  // For generating a reference from the simple options
+  function generateSimple() {
+    openSimplePrompts();
+  }
+
+  // For opening the simple generate panel
+  function openSimplePrompts() {
+    setOpenSimpleGenerate(true);
+  }
+
+  useEffect(() => {
+    GenerateAPI.getCurrentPrompts().then((response) => {
+      if (
+        Object.prototype.hasOwnProperty.call(response, "'error'") ||
+        Object.prototype.hasOwnProperty.call(response, 'error')
+      ) {
+        console.log('error');
+      } else {
+        console.log(response);
+      }
+    });
+  }, []);
 
   return (
     <div className="create-page">
@@ -57,7 +89,7 @@ const Create = () => {
             <div className="btn-row">
               <div
                 className={
-                  openSimpleGenerate ? 'btn primary selected' : 'btn primary'
+                  openSimpleOpts ? 'btn primary selected' : 'btn primary'
                 }
                 id="simple"
                 onClick={() => toggleOptsDialog('simple')}
@@ -74,30 +106,38 @@ const Create = () => {
                 Custom
               </div>
             </div>
-            {openSimpleGenerate ? (
+            {openSimpleOpts ? (
               <div className="simple-opts">
-                <select className="reference-type">
-                  <option
-                    value="default"
-                    className="disabled"
-                    disabled
-                    selected
-                    hidden
-                  >
+                <select className="reference-type" defaultValue="default">
+                  <option value="default" className="disabled" disabled hidden>
                     Select type of reference
                   </option>
                   <option value="generic">Generic reference</option>
                   <option value="character">Character reference</option>
                   <option value="academic">Academic reference</option>
                 </select>
-                <div className="btn primary generate">Generate</div>
+                <div
+                  className="btn primary generate"
+                  onClick={() => generateSimple()}
+                >
+                  Generate
+                </div>
               </div>
             ) : (
               ''
             )}
           </div>
           {openSimpleGenerate ? <div className="box"></div> : ''}
-          {openCustomGenerate ? <div className="box"></div> : ''}
+          {openCustomGenerate ? (
+            <div className="box custom-prompts">
+              <div className="btn primary add-block">
+                <img src={AddBlock} alt="Add button" />
+                Add block
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
 
         <div className="right">
