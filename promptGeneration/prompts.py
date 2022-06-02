@@ -4,7 +4,6 @@ import pickle
 """
 NEED TO REPLACE THIS KEY FOR PRODUCTION
 """
-openai.api_key="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"
 
 """
 d: dictionary with keys:
