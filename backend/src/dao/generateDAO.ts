@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import { prompt } from '../types/global.types';
 
 class GenerateDAO {
   // Read prompts.json config and return parsed JSON
@@ -8,9 +9,9 @@ class GenerateDAO {
         './config/prompts.json',
         'utf-8'
       );
-      const prompts: Object = JSON.parse(stream);
+      const prompts: prompt[] = JSON.parse(stream).prompts;
       return prompts;
-    } catch (e) {
+    } catch (e: any) {
       console.error('[GenerateDAO]: Error reading prompts.json config. ' + e);
       return null;
     }

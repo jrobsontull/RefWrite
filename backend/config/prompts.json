@@ -1,21 +1,23 @@
 {
   "prompts": [
     {
-      "text": "Write an introductory paragraph about FIRSTNAME's work as a JOB.",
+      "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB.",
       "type": "intro",
       "requires": [
         { "reqVarName": "firstName", "ref": "FIRSTNAME" },
         { "reqVarName": "job", "ref": "JOB" }
-      ]
+      ],
+      "identifier": "intro-1"
     },
     {
-      "text": "Write an introductory paragraph about FIRSTNAME's work as a JOB using the following personaility traits. TRAITS.",
+      "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB using the following personaility traits. TRAITS.",
       "type": "intro",
       "requires": [
         { "reqVarName": "firstName", "ref": "FIRSTNAME" },
         { "reqVarName": "job", "ref": "JOB" },
         { "reqVarName": "traits", "ref": "TRAITS" }
-      ]
+      ],
+      "identifier": "intro-2"
     }
   ]
 }

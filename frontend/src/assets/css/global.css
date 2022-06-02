@@ -105,6 +105,22 @@
 .content .left .box.generation-settings .simple-opts div.btn {
   font-size: 15px;
 }
+.content .left .box.custom-prompts {
+  display: flex;
+  justify-content: center;
+}
+.content .left .box.custom-prompts .btn.add-block {
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+}
+.content .left .box.custom-prompts .btn.add-block img {
+  width: 22px;
+  height: auto;
+  margin-right: 6px;
+}
 .content .right {
   flex: 50%;
   margin-left: 14px;
@@ -200,17 +216,6 @@ header .nav-action ul li .more-menu {
   left: -52px;
   border: 1px solid #e2e8f0;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
-}
-header .nav-action ul li .more-menu .up-arrow {
-  position: absolute;
-  margin-left: 67px;
-  top: -8px;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 8px solid #e2e8f0;
-  z-index: 1;
 }
 header .nav-action ul li .more-menu .menu-item {
   z-index: 2;

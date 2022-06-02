@@ -108,6 +108,25 @@
         }
       }
     }
+
+    .box.custom-prompts {
+      display: flex;
+      justify-content: center;
+
+      .btn.add-block {
+        border-radius: $border-radius;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+
+        img {
+          width: 22px;
+          height: auto;
+          margin-right: 6px;
+        }
+      }
+    }
   }
 
   .right {
