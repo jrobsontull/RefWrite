@@ -1,27 +1,28 @@
 import { useState, useEffect } from 'react';
 import Header from '../general/Header';
 import GenerateAPI from '../../utils/generate.api';
+import TextareaAutosize from 'react-textarea-autosize';
+import { v4 as uuid } from 'uuid';
 
-import AddBlock from '../../assets/img/add_block_icon.svg';
-import { AxiosResponse } from 'axios';
+// Types
 import { prompt } from '../../global.types';
+
+// Images
+import AddBlock from '../../assets/img/add_block_icon.svg';
 
 const Create = () => {
   // Available prompts
-  const [prompts, setPrompts] = useState([]);
+  const [prompts, setPrompts] = useState<prompt[]>([]);
 
   // Form states
-  const [openSimpleOpts, setOpenSimpleOpts] = useState(false);
-  const [openCustomGenerate, setOpenCustomGenerate] = useState(false);
-  const [openSimpleGenerate, setOpenSimpleGenerate] = useState(false);
-  const [openAddBlockMenu, setOpenAddBlockMenu] = useState(false);
-  const [promptsInUse, setPromptsInUse] = useState([]);
-
-  // Store for preview panel
-  const [preview, setPreview] = useState([]);
+  const [openSimpleOpts, setOpenSimpleOpts] = useState<boolean>(false);
+  const [openCustomGenerate, setOpenCustomGenerate] = useState<boolean>(false);
+  const [openSimpleGenerate, setOpenSimpleGenerate] = useState<boolean>(false);
+  const [openAddBlockMenu, setOpenAddBlockMenu] = useState<boolean>(false);
+  const [promptsInUse, setPromptsInUse] = useState<any[]>([]);
 
   // Toggle openning of prompt panels
-  const toggleOptsDialog: Function = (openGen: string) => {
+  const toggleOptsDialog: Function = (openGen: string): void => {
     if (openGen === 'simple' && !openSimpleOpts) {
       // Open simple options
       if (openCustomGenerate) {
@@ -39,23 +40,44 @@ const Create = () => {
   };
 
   // For generating a reference from the simple options
-  function generateSimple() {
+  function generateSimple(): void {
     openSimplePrompts();
   }
 
   // For opening the simple generate panel
-  function openSimplePrompts() {
+  function openSimplePrompts(): void {
     setOpenSimpleGenerate(true);
   }
 
   // Add custom block
-  function addCustomBlock(identifier: string) {
+  function addCustomBlock(identifier: string): void {
     setOpenAddBlockMenu(false);
-    const selectedPrompt: prompt | undefined = prompts.find(
+    let selectedPrompt: prompt | undefined = prompts.find(
       (prompt: prompt) => prompt.identifier === identifier
     );
+
     if (selectedPrompt) {
+      selectedPrompt.uniqueId = uuid();
       setPromptsInUse((current) => [...current, selectedPrompt]);
+    }
+  }
+
+  // On custom block ouput update
+  function updateOutput(promptId: string, newOuput: string) {
+    let foundIndex: number | null = null;
+    promptsInUse.forEach(function (prompt: prompt, i: number) {
+      if (prompt.uniqueId === promptId) {
+        foundIndex = i;
+        return;
+      }
+    });
+
+    if (foundIndex || foundIndex === 0) {
+      let updatedPromptsInUse: prompt[] = [...promptsInUse]; // shallow copy
+      let updatedPrompt = { ...updatedPromptsInUse[foundIndex] }; // get element for mutation
+      updatedPrompt.output = newOuput; // update output text
+      updatedPromptsInUse[foundIndex] = updatedPrompt;
+      setPromptsInUse(updatedPromptsInUse);
     }
   }
 
@@ -147,7 +169,7 @@ const Create = () => {
               {promptsInUse.length > 0 ? (
                 <ul className="current-prompts">
                   {promptsInUse.map((prompt: prompt) => (
-                    <li key={prompt.identifier}>
+                    <li key={prompt.uniqueId}>
                       <h3 className="title">{prompt.title}</h3>
                       {!prompt.auto ? (
                         <p className="description">{prompt.description}</p>
@@ -155,7 +177,10 @@ const Create = () => {
                         ''
                       )}
                       {!prompt.auto ? (
-                        <textarea className="prompt-params"></textarea>
+                        <TextareaAutosize
+                          className="prompt-params"
+                          minRows={3}
+                        ></TextareaAutosize>
                       ) : (
                         ''
                       )}
@@ -164,7 +189,13 @@ const Create = () => {
                       ) : (
                         ''
                       )}
-                      <textarea className="output"></textarea>
+                      <TextareaAutosize
+                        className="output"
+                        minRows={3}
+                        onChange={(e) =>
+                          updateOutput(prompt.uniqueId, e.target.value)
+                        }
+                      ></TextareaAutosize>
                     </li>
                   ))}
                 </ul>
@@ -215,12 +246,16 @@ const Create = () => {
             </div>
           </div>
           <div className="preview-pane">
-            {preview.length > 0 ? (
+            {promptsInUse.length > 0 ? (
               <div className="preview">
                 <p>To whom it may concern,</p>
-                {preview.map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
+                {promptsInUse.map((prompt) =>
+                  prompt.output ? (
+                    <p key={prompt.uniqueId}>{prompt.output}</p>
+                  ) : (
+                    ''
+                  )
+                )}
                 <p>Kind regards,</p>
                 <p>John Doe</p>
               </div>

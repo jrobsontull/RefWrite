@@ -132,9 +132,9 @@
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   resize: vertical;
-  min-height: 60px;
   color: #475569;
   padding: 8px 12px;
+  resize: none;
 }
 .content .left .box.custom-prompts ul.current-prompts li textarea.prompt-params {
   margin-bottom: 8px;

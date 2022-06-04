@@ -12,4 +12,6 @@ export interface prompt {
   identifier: string;
   auto: boolean;
   description?: string;
+  uniqueId: string;
+  output?: string;
 }
