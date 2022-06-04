@@ -1,23 +1,52 @@
 {
   "prompts": [
     {
+      "title": "Intro block (auto)",
       "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB.",
       "type": "intro",
       "requires": [
         { "reqVarName": "firstName", "ref": "FIRSTNAME" },
         { "reqVarName": "job", "ref": "JOB" }
       ],
+      "auto": true,
       "identifier": "intro-1"
     },
     {
+      "title": "Intro block (custom)",
       "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB using the following personaility traits. TRAITS.",
+      "description": "Write 3 things that summarise John as a person.",
       "type": "intro",
       "requires": [
         { "reqVarName": "firstName", "ref": "FIRSTNAME" },
         { "reqVarName": "job", "ref": "JOB" },
         { "reqVarName": "traits", "ref": "TRAITS" }
       ],
+      "auto": false,
       "identifier": "intro-2"
+    },
+    {
+      "title": "Intro block 2 (auto)",
+      "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB.",
+      "type": "intro",
+      "requires": [
+        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
+        { "reqVarName": "job", "ref": "JOB" }
+      ],
+      "auto": true,
+      "identifier": "intro-3"
+    },
+    {
+      "title": "Intro block 2 (custom)",
+      "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB using the following personaility traits. TRAITS.",
+      "description": "Write 3 things that summarise John as a person.",
+      "type": "intro",
+      "requires": [
+        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
+        { "reqVarName": "job", "ref": "JOB" },
+        { "reqVarName": "traits", "ref": "TRAITS" }
+      ],
+      "auto": false,
+      "identifier": "intro-4"
     }
   ]
 }

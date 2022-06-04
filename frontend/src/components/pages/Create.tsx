@@ -4,6 +4,7 @@ import GenerateAPI from '../../utils/generate.api';
 
 import AddBlock from '../../assets/img/add_block_icon.svg';
 import { AxiosResponse } from 'axios';
+import { prompt } from '../../global.types';
 
 const Create = () => {
   // Available prompts
@@ -13,6 +14,8 @@ const Create = () => {
   const [openSimpleOpts, setOpenSimpleOpts] = useState(false);
   const [openCustomGenerate, setOpenCustomGenerate] = useState(false);
   const [openSimpleGenerate, setOpenSimpleGenerate] = useState(false);
+  const [openAddBlockMenu, setOpenAddBlockMenu] = useState(false);
+  const [promptsInUse, setPromptsInUse] = useState([]);
 
   // Store for preview panel
   const [preview, setPreview] = useState([]);
@@ -45,15 +48,26 @@ const Create = () => {
     setOpenSimpleGenerate(true);
   }
 
+  // Add custom block
+  function addCustomBlock(identifier: string) {
+    setOpenAddBlockMenu(false);
+    const selectedPrompt: prompt | undefined = prompts.find(
+      (prompt: prompt) => prompt.identifier === identifier
+    );
+    if (selectedPrompt) {
+      setPromptsInUse((current) => [...current, selectedPrompt]);
+    }
+  }
+
   useEffect(() => {
     GenerateAPI.getCurrentPrompts().then((response) => {
       if (
         Object.prototype.hasOwnProperty.call(response, "'error'") ||
         Object.prototype.hasOwnProperty.call(response, 'error')
       ) {
-        console.log('error');
+        console.log('An error occurred: ' + response.error);
       } else {
-        console.log(response);
+        setPrompts(response.prompts);
       }
     });
   }, []);
@@ -130,9 +144,60 @@ const Create = () => {
           {openSimpleGenerate ? <div className="box"></div> : ''}
           {openCustomGenerate ? (
             <div className="box custom-prompts">
-              <div className="btn primary add-block">
-                <img src={AddBlock} alt="Add button" />
-                Add block
+              {promptsInUse.length > 0 ? (
+                <ul className="current-prompts">
+                  {promptsInUse.map((prompt: prompt) => (
+                    <li key={prompt.identifier}>
+                      <h3 className="title">{prompt.title}</h3>
+                      {!prompt.auto ? (
+                        <p className="description">{prompt.description}</p>
+                      ) : (
+                        ''
+                      )}
+                      {!prompt.auto ? (
+                        <textarea className="prompt-params"></textarea>
+                      ) : (
+                        ''
+                      )}
+                      {!prompt.auto ? (
+                        <p className="output-title">Output:</p>
+                      ) : (
+                        ''
+                      )}
+                      <textarea className="output"></textarea>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                ''
+              )}
+
+              <div className="add-block-and-menu">
+                <div
+                  className="btn primary add-block"
+                  onClick={() => setOpenAddBlockMenu(true)}
+                >
+                  <img src={AddBlock} alt="Add button" />
+                  Add block
+                </div>
+                {openAddBlockMenu ? (
+                  <div className="popup">
+                    <ul>
+                      {prompts.length > 0
+                        ? prompts.map((prompt: prompt) => (
+                            <li
+                              key={prompt.identifier}
+                              onClick={() => addCustomBlock(prompt.identifier)}
+                            >
+                              {prompt.title}
+                            </li>
+                          ))
+                        : ''}
+                    </ul>
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
           ) : (

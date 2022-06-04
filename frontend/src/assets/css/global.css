@@ -74,11 +74,11 @@
   display: flex;
   justify-content: center;
   max-width: 300px;
-  margin: 0 auto 14px auto;
+  margin: 0 auto;
 }
 .content .left .box.generation-settings .btn-row .btn {
   padding: 10px 30px;
-  font-size: 15px;
+  font-size: 16px;
   width: 50%;
 }
 .content .left .box.generation-settings .btn-row .btn#simple {
@@ -92,7 +92,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
+  margin: 14px auto 0 auto;
 }
 .content .left .box.generation-settings .simple-opts select.reference-type {
   margin-bottom: 14px;
@@ -103,23 +103,98 @@
   color: #314047;
 }
 .content .left .box.generation-settings .simple-opts div.btn {
-  font-size: 15px;
+  font-size: 16px;
 }
 .content .left .box.custom-prompts {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
-.content .left .box.custom-prompts .btn.add-block {
+.content .left .box.custom-prompts ul.current-prompts {
+  list-style-type: none;
+  padding-left: 0;
+}
+.content .left .box.custom-prompts ul.current-prompts li {
+  margin-bottom: 20px;
+}
+.content .left .box.custom-prompts ul.current-prompts li .title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.content .left .box.custom-prompts ul.current-prompts li .description {
+  margin-bottom: 16px;
+}
+.content .left .box.custom-prompts ul.current-prompts li textarea.prompt-params,
+.content .left .box.custom-prompts ul.current-prompts li textarea.output {
+  background-color: #f8fafc;
+  width: calc(100% - 24px);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 60px;
+  color: #475569;
+  padding: 8px 12px;
+}
+.content .left .box.custom-prompts ul.current-prompts li textarea.prompt-params {
+  margin-bottom: 8px;
+}
+.content .left .box.custom-prompts ul.current-prompts li p.output-title {
+  margin-bottom: 8px;
+}
+.content .left .box.custom-prompts .add-block-and-menu {
+  position: relative;
+  align-self: center;
+}
+.content .left .box.custom-prompts .add-block-and-menu .btn.add-block {
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px 12px;
+  font-size: 16px;
+  align-self: center;
 }
-.content .left .box.custom-prompts .btn.add-block img {
+.content .left .box.custom-prompts .add-block-and-menu .btn.add-block img {
   width: 22px;
   height: auto;
   margin-right: 6px;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+  position: absolute;
+  right: -220px;
+  height: 120px;
+  width: 200px;
+  overflow-y: auto;
+  top: -16px;
+  border-radius: 6px;
+  color: #314047;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup ul li {
+  padding: 8px 20px;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup ul li:hover {
+  cursor: pointer;
+  background-color: #f1f5f9;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup::-webkit-scrollbar {
+  width: 14px;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup::-webkit-scrollbar-thumb {
+  background: #64748b;
+}
+.content .left .box.custom-prompts .add-block-and-menu .popup::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 .content .right {
   flex: 50%;
@@ -159,7 +234,7 @@
 }
 .content .right .preview-pane .preview p {
   margin-bottom: 10px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 header {
@@ -336,7 +411,7 @@ body {
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
   border-radius: 6px;
   color: #314047;
-  font-size: 15px;
+  font-size: 16px;
   padding: 24px;
 }
 

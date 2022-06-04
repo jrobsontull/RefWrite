@@ -15,5 +15,5 @@ const promptsInitialise = async () => {
 promptsInitialise();
 
 app.listen(port, () => {
-  console.log('⚡️ [server]: Backend running at http://localhost:' + port);
+  console.log('⚡️ [Server]: Backend running at http://localhost:' + port);
 });
