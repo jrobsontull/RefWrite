@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import Header from '../general/Header';
 import GenerateAPI from '../../utils/generate.api';
-import TextareaAutosize from 'react-textarea-autosize';
 import { v4 as uuid } from 'uuid';
 
 // Types
 import { prompt } from '../../global.types';
 
-// Images
-import AddBlock from '../../assets/img/add_block_icon.svg';
+// Components
+import AddBlockBtn from '../general/AddBlockBtn';
+import GenerationBlock from '../general/GenerationBlock';
 
 const Create = () => {
   // Available prompts
@@ -18,7 +18,6 @@ const Create = () => {
   const [openSimpleOpts, setOpenSimpleOpts] = useState<boolean>(false);
   const [openCustomGenerate, setOpenCustomGenerate] = useState<boolean>(false);
   const [openSimpleGenerate, setOpenSimpleGenerate] = useState<boolean>(false);
-  const [openAddBlockMenu, setOpenAddBlockMenu] = useState<boolean>(false);
   const [promptsInUse, setPromptsInUse] = useState<any[]>([]);
 
   // Toggle openning of prompt panels
@@ -51,7 +50,6 @@ const Create = () => {
 
   // Add custom block
   function addCustomBlock(identifier: string): void {
-    setOpenAddBlockMenu(false);
     let selectedPrompt: prompt | undefined = prompts.find(
       (prompt: prompt) => prompt.identifier === identifier
     );
@@ -169,67 +167,18 @@ const Create = () => {
               {promptsInUse.length > 0 ? (
                 <ul className="current-prompts">
                   {promptsInUse.map((prompt: prompt) => (
-                    <li key={prompt.uniqueId}>
-                      <h3 className="title">{prompt.title}</h3>
-                      {!prompt.auto ? (
-                        <p className="description">{prompt.description}</p>
-                      ) : (
-                        ''
-                      )}
-                      {!prompt.auto ? (
-                        <TextareaAutosize
-                          className="prompt-params"
-                          minRows={3}
-                        ></TextareaAutosize>
-                      ) : (
-                        ''
-                      )}
-                      {!prompt.auto ? (
-                        <p className="output-title">Output:</p>
-                      ) : (
-                        ''
-                      )}
-                      <TextareaAutosize
-                        className="output"
-                        minRows={3}
-                        onChange={(e) =>
-                          updateOutput(prompt.uniqueId, e.target.value)
-                        }
-                      ></TextareaAutosize>
-                    </li>
+                    <GenerationBlock
+                      key={prompt.uniqueId}
+                      prompt={prompt}
+                      cb={updateOutput}
+                    />
                   ))}
                 </ul>
               ) : (
                 ''
               )}
 
-              <div className="add-block-and-menu">
-                <div
-                  className="btn primary add-block"
-                  onClick={() => setOpenAddBlockMenu(true)}
-                >
-                  <img src={AddBlock} alt="Add button" />
-                  Add block
-                </div>
-                {openAddBlockMenu ? (
-                  <div className="popup">
-                    <ul>
-                      {prompts.length > 0
-                        ? prompts.map((prompt: prompt) => (
-                            <li
-                              key={prompt.identifier}
-                              onClick={() => addCustomBlock(prompt.identifier)}
-                            >
-                              {prompt.title}
-                            </li>
-                          ))
-                        : ''}
-                    </ul>
-                  </div>
-                ) : (
-                  ''
-                )}
-              </div>
+              <AddBlockBtn availablePrompts={prompts} cb={addCustomBlock} />
             </div>
           ) : (
             ''

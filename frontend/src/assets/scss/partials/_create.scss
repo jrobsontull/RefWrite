@@ -1,6 +1,6 @@
 .content {
   display: flex;
-  margin: 30px 24px 0 24px;
+  margin: 30px 24px 30px 24px;
 
   .left {
     flex: 50%;
@@ -152,70 +152,6 @@
           }
         }
       }
-
-      .add-block-and-menu {
-        position: relative;
-        align-self: center;
-
-        .btn.add-block {
-          border-radius: $border-radius;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 10px 12px;
-          font-size: 16px;
-          align-self: center;
-
-          img {
-            width: 22px;
-            height: auto;
-            margin-right: 6px;
-          }
-        }
-        .popup {
-          background-color: $gray-100;
-          border: 1px solid $gray-300;
-          box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
-          position: absolute;
-          right: -220px;
-          height: 120px;
-          width: 200px;
-          overflow-y: auto;
-          top: -16px;
-          border-radius: $border-radius;
-          color: $gray-800;
-
-          ul {
-            list-style-type: none;
-            padding-left: 0;
-
-            li {
-              padding: 8px 20px;
-            }
-
-            li:hover {
-              cursor: pointer;
-              background-color: $gray-200;
-            }
-          }
-        }
-
-        .popup::-webkit-scrollbar {
-          width: 14px;
-        }
-
-        .popup::-webkit-scrollbar-track {
-          background: $gray-300;
-        }
-
-        .popup::-webkit-scrollbar-thumb {
-          background: $gray-500;
-        }
-
-        .popup::-webkit-scrollbar-thumb:hover {
-          background: #555;
-        }
-      }
     }
   }
 
@@ -230,6 +166,9 @@
 
       .btn {
         width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #save-changes {
