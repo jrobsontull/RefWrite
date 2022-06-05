@@ -1,0 +1,92 @@
+.box.prompts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  ul.current-prompts {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 20px;
+
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .description {
+        margin-bottom: 16px;
+      }
+
+      textarea.prompt-params,
+      textarea.output {
+        background-color: $gray-100;
+        width: calc(100% - 24px);
+        border: 1px solid $gray-300;
+        border-radius: $border-radius;
+        resize: vertical;
+        color: $gray-600;
+        padding: 8px 12px;
+        resize: none;
+      }
+
+      textarea.prompt-params {
+        margin-bottom: 8px;
+      }
+
+      textarea::placeholder {
+        color: $gray-400;
+      }
+
+      .auto-output,
+      .custom-output {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+
+        .btns {
+          display: flex;
+          margin-left: 10px;
+
+          div {
+            border: 1px solid;
+            border-radius: $border-radius;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            transition: all 0.25s;
+            text-align: center;
+          }
+
+          .generate-btn {
+            color: $primary-btn-dark;
+            border-color: $primary-btn-dark;
+            margin-right: 8px;
+          }
+
+          .undo-btn {
+            color: $primary-btn;
+            border-color: $primary-btn;
+          }
+
+          div:hover {
+            cursor: pointer;
+          }
+
+          .generate-btn:hover {
+            background-color: $primary-btn-dark;
+            color: $gray-100;
+          }
+
+          .undo-btn:hover {
+            background-color: $gray-300;
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,4 +7,5 @@ export interface prompt {
   identifier: string;
   auto: boolean;
   description?: string;
+  placeholder?: string;
 }

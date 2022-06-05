@@ -28,9 +28,17 @@
   padding: 12px 12px;
   color: #314047;
   margin-bottom: 20px;
+  transition: all 0.25s;
 }
 .content .left input.title::placeholder {
   color: #cbd5e1;
+}
+.content .left input.title:hover {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.03);
+}
+.content .left input.title:focus {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06);
+  border-color: #cbd5e1;
 }
 .content .left .box.general-options {
   margin-bottom: 20px;
@@ -48,9 +56,17 @@
   background-color: #f8fafc;
   padding: 8px 8px;
   color: #314047;
+  transition: all 0.25s;
 }
 .content .left .box.general-options .input-row input::placeholder {
   color: #cbd5e1;
+}
+.content .left .box.general-options .input-row input:hover {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.03);
+}
+.content .left .box.general-options .input-row input:focus {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06);
+  border-color: #cbd5e1;
 }
 .content .left .box.general-options .input-row input#firstName,
 .content .left .box.general-options .input-row input#relationship {
@@ -105,43 +121,6 @@
 .content .left .box.generation-settings .simple-opts div.btn {
   font-size: 16px;
 }
-.content .left .box.custom-prompts {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.content .left .box.custom-prompts ul.current-prompts {
-  list-style-type: none;
-  padding-left: 0;
-}
-.content .left .box.custom-prompts ul.current-prompts li {
-  margin-bottom: 20px;
-}
-.content .left .box.custom-prompts ul.current-prompts li .title {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-.content .left .box.custom-prompts ul.current-prompts li .description {
-  margin-bottom: 16px;
-}
-.content .left .box.custom-prompts ul.current-prompts li textarea.prompt-params,
-.content .left .box.custom-prompts ul.current-prompts li textarea.output {
-  background-color: #f8fafc;
-  width: calc(100% - 24px);
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  resize: vertical;
-  color: #475569;
-  padding: 8px 12px;
-  resize: none;
-}
-.content .left .box.custom-prompts ul.current-prompts li textarea.prompt-params {
-  margin-bottom: 8px;
-}
-.content .left .box.custom-prompts ul.current-prompts li p.output-title {
-  margin-bottom: 8px;
-}
 .content .right {
   flex: 50%;
   margin-left: 14px;
@@ -182,10 +161,25 @@
   padding: 160px 0;
 }
 .content .right .preview-pane .preview p {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   font-size: 16px;
 }
+.content .right .preview-pane .preview p.placeholder {
+  color: #cbd5e1;
+}
 
+@media screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column;
+  }
+  .content .left,
+.content .right {
+    margin: 0;
+  }
+  .content .right {
+    margin-top: 20px;
+  }
+}
 header {
   background-color: #fff;
   width: 100%;
@@ -362,6 +356,31 @@ header .nav-action .theme-toggle .switch input:checked + .slider:before {
   transform: rotate(45deg);
   z-index: 1;
 }
+.add-block .popup #close-btn {
+  position: absolute;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 260px;
+  top: 43px;
+  font-weight: 500;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.06);
+  color: #64748b;
+  transition: all 0.1s;
+}
+.add-block .popup #close-btn:hover {
+  border-width: 2px;
+  top: 42px;
+  left: 259px;
+  border-color: #64748b;
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
 .add-block .popup ul {
   list-style-type: none;
   padding-left: 0;
@@ -386,7 +405,92 @@ header .nav-action .theme-toggle .switch input:checked + .slider:before {
   background: #64748b;
 }
 .add-block .popup ul::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #475569;
+}
+
+.box.prompts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.box.prompts ul.current-prompts {
+  list-style-type: none;
+  padding-left: 0;
+}
+.box.prompts ul.current-prompts li {
+  margin-bottom: 20px;
+}
+.box.prompts ul.current-prompts li .title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.box.prompts ul.current-prompts li .description {
+  margin-bottom: 16px;
+}
+.box.prompts ul.current-prompts li textarea.prompt-params,
+.box.prompts ul.current-prompts li textarea.output {
+  background-color: #f8fafc;
+  width: calc(100% - 24px);
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  resize: vertical;
+  color: #475569;
+  padding: 8px 12px;
+  resize: none;
+}
+.box.prompts ul.current-prompts li textarea.prompt-params {
+  margin-bottom: 8px;
+}
+.box.prompts ul.current-prompts li textarea::placeholder {
+  color: #cbd5e1;
+}
+.box.prompts ul.current-prompts li .auto-output,
+.box.prompts ul.current-prompts li .custom-output {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.box.prompts ul.current-prompts li .auto-output .btns,
+.box.prompts ul.current-prompts li .custom-output .btns {
+  display: flex;
+  margin-left: 10px;
+}
+.box.prompts ul.current-prompts li .auto-output .btns div,
+.box.prompts ul.current-prompts li .custom-output .btns div {
+  border: 1px solid;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  transition: all 0.25s;
+  text-align: center;
+}
+.box.prompts ul.current-prompts li .auto-output .btns .generate-btn,
+.box.prompts ul.current-prompts li .custom-output .btns .generate-btn {
+  color: #4338ca;
+  border-color: #4338ca;
+  margin-right: 8px;
+}
+.box.prompts ul.current-prompts li .auto-output .btns .undo-btn,
+.box.prompts ul.current-prompts li .custom-output .btns .undo-btn {
+  color: #818cf8;
+  border-color: #818cf8;
+}
+.box.prompts ul.current-prompts li .auto-output .btns div:hover,
+.box.prompts ul.current-prompts li .custom-output .btns div:hover {
+  cursor: pointer;
+}
+.box.prompts ul.current-prompts li .auto-output .btns .generate-btn:hover,
+.box.prompts ul.current-prompts li .custom-output .btns .generate-btn:hover {
+  background-color: #4338ca;
+  color: #f8fafc;
+}
+.box.prompts ul.current-prompts li .auto-output .btns .undo-btn:hover,
+.box.prompts ul.current-prompts li .custom-output .btns .undo-btn:hover {
+  background-color: #e2e8f0;
 }
 
 * {

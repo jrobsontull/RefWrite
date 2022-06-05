@@ -26,6 +26,9 @@ const AddBlockBtn = (props: {
       {openPopup ? (
         <div className="popup">
           <div id="arrow" />
+          <div id="close-btn" onClick={() => setOpenPopup(false)}>
+            X
+          </div>
           <ul>
             {props.availablePrompts.length > 0
               ? props.availablePrompts.map((prompt: prompt) => (

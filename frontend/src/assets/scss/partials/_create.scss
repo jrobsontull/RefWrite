@@ -15,10 +15,20 @@
       padding: 12px 12px;
       color: $gray-800;
       margin-bottom: 20px;
+      transition: all 0.25s;
     }
 
     input.title::placeholder {
       color: $gray-400;
+    }
+
+    input.title:hover {
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.03);
+    }
+
+    input.title:focus {
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06);
+      border-color: $gray-400;
     }
 
     .box.general-options {
@@ -37,10 +47,20 @@
           background-color: $gray-100;
           padding: 8px 8px;
           color: $gray-800;
+          transition: all 0.25s;
         }
 
         input::placeholder {
           color: $gray-400;
+        }
+
+        input:hover {
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.03);
+        }
+
+        input:focus {
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.06);
+          border-color: $gray-400;
         }
 
         input#firstName,
@@ -108,51 +128,6 @@
         }
       }
     }
-
-    .box.custom-prompts {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      ul.current-prompts {
-        list-style-type: none;
-        padding-left: 0;
-
-        li {
-          margin-bottom: 20px;
-
-          .title {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 8px;
-          }
-
-          .description {
-            margin-bottom: 16px;
-          }
-
-          textarea.prompt-params,
-          textarea.output {
-            background-color: $gray-100;
-            width: calc(100% - 24px);
-            border: 1px solid $gray-300;
-            border-radius: $border-radius;
-            resize: vertical;
-            color: $gray-600;
-            padding: 8px 12px;
-            resize: none;
-          }
-
-          textarea.prompt-params {
-            margin-bottom: 8px;
-          }
-
-          p.output-title {
-            margin-bottom: 8px;
-          }
-        }
-      }
-    }
   }
 
   .right {
@@ -200,10 +175,29 @@
         }
 
         p {
-          margin-bottom: 10px;
+          margin-bottom: 14px;
           font-size: 16px;
         }
+
+        p.placeholder {
+          color: $gray-400;
+        }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column;
+
+    .left,
+    .right {
+      margin: 0;
+    }
+
+    .right {
+      margin-top: 20px;
     }
   }
 }

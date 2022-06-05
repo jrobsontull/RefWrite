@@ -163,7 +163,7 @@ const Create = () => {
           </div>
           {openSimpleGenerate ? <div className="box"></div> : ''}
           {openCustomGenerate ? (
-            <div className="box custom-prompts">
+            <div className="box prompts">
               {promptsInUse.length > 0 ? (
                 <ul className="current-prompts">
                   {promptsInUse.map((prompt: prompt) => (
@@ -202,7 +202,9 @@ const Create = () => {
                   prompt.output ? (
                     <p key={prompt.uniqueId}>{prompt.output}</p>
                   ) : (
-                    ''
+                    <p className="placeholder" key={prompt.uniqueId}>
+                      {prompt.title} output...
+                    </p>
                   )
                 )}
                 <p>Kind regards,</p>
