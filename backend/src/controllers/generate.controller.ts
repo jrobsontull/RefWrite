@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AxiosResponse } from 'axios';
 import GenerateDAO from '../dao/generateDAO';
 
 // Import types
@@ -67,6 +68,26 @@ class GenerateController {
       res
         .status(500)
         .json({ error: 'Failed to reinitialise prompts config. ' + e.message });
+    }
+  }
+
+  static async apiGenerate(req: Request, res: Response, next: Function) {
+    try {
+      const prompt = req.body.prompt;
+      const tokens = parseInt(req.body.tokens, 10);
+      const response: AxiosResponse<any, any> | { error: any } =
+        await GenerateDAO.generate({
+          prompt: prompt,
+          maxTokens: tokens,
+        });
+      if (response) {
+        console.log(response);
+        res.json(response);
+      }
+    } catch (e: any) {
+      console.error(
+        '[PromptController]: Failed to generate text from prompt. ' + e
+      );
     }
   }
 }

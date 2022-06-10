@@ -4,7 +4,7 @@ import http from './http.common';
 
 class GenerateAPI {
   static async getCurrentPrompts() {
-    const url: string = '/api/v1/generate/prompts';
+    const url: string = '/api/v1/generate/prompt';
     const response: AxiosResponse<any, any> | null = await getRequest(url);
     if (response) {
       return response.data;

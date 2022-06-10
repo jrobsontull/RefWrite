@@ -4,9 +4,12 @@ import GenerateController from '../controllers/generate.controller';
 const router: Router = express.Router();
 
 // Get list of available prompts
-router.route('/prompts').get(GenerateController.apiGetCurrentPrompts);
+router.route('/prompt').get(GenerateController.apiGetCurrentPrompts);
 
 // Update available prompts
-router.route('/prompts/update').post(GenerateController.apiUpdatePrompts);
+router.route('/prompt/update').post(GenerateController.apiUpdatePrompts);
+
+// Generate text from prompt
+router.route('/prompt').post(GenerateController.apiGenerate);
 
 export default router;
