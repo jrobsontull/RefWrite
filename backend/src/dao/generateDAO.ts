@@ -1,7 +1,24 @@
 import fs from 'fs/promises';
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import dotenv from 'dotenv';
-import { prompt, promptData } from '../types/global.types';
+import { prompt } from '../types/global.types';
+
+interface generateProps {
+  model?: string;
+  maxTokens: number;
+  temperature?: number;
+  prompt: string;
+}
+
+interface generateBody {
+  model: string;
+  max_tokens: number;
+  temperature: number;
+  prompt: string;
+  top_p?: number;
+  n?: number;
+  stop?: string;
+}
 
 dotenv.config();
 let http: AxiosInstance;
@@ -26,17 +43,24 @@ class GenerateDAO {
   static async initiateHTTP() {
     try {
       const baseURL: string = 'https://api.openai.com/v1/';
-      const apiKey = process.env.OPENAI_API_KEY || null;
-      http = axios.create({
-        baseURL: baseURL,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + apiKey,
-        },
-      });
-      console.log('[GenerateDAO]: Initialised prompt API HTTP.');
+      const apiKey: string = process.env.OPENAI_API_KEY || null;
+
+      if (apiKey) {
+        http = axios.create({
+          baseURL: baseURL,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + apiKey,
+          },
+        });
+        console.log('[GenerateDAO]: Initialised prompt API HTTP.');
+      } else {
+        throw new Error('OpenAI API key missing.');
+      }
     } catch (e: any) {
-      console.error('[GenerateDAO]: Failed to initialise prompt API. ' + e);
+      console.error(
+        '[GenerateDAO]: Failed to initialise prompt API. ' + e.message
+      );
     }
   }
 
@@ -46,9 +70,9 @@ class GenerateDAO {
     maxTokens,
     temperature = 0,
     prompt,
-  }: promptData) {
+  }: generateProps) {
     try {
-      const body = {
+      const body: generateBody = {
         model: model,
         max_tokens: maxTokens,
         temperature: temperature,
@@ -59,12 +83,17 @@ class GenerateDAO {
       };
 
       const response: AxiosResponse = await http.post('/completions', body);
-      if (response) {
-        return response.data;
+      if (response && response.status === 200) {
+        return { result: response.data.choices[0].text };
+      } else {
+        return { error: 'rest' };
       }
     } catch (e: any) {
-      console.error('[GenerateDAO]: Failed to generate text from prompt. ' + e);
-      return { error: e };
+      console.error(
+        '[GenerateDAO]: Failed to generate text from prompt. ' + e.message
+      );
+
+      return { error: e.message };
     }
   }
 }

@@ -16,3 +16,10 @@ export interface prompt {
   uniqueId: string;
   output?: string;
 }
+
+export interface generalOpts {
+  name: string;
+  job: string;
+  relationship: string;
+  organisation: string;
+}

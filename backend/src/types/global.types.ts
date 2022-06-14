@@ -9,10 +9,3 @@ export interface prompt {
   description?: string;
   placeholder?: string;
 }
-
-export interface promptData {
-  model?: string;
-  maxTokens: number;
-  temperature?: number;
-  prompt: string;
-}

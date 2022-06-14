@@ -73,15 +73,16 @@ class GenerateController {
 
   static async apiGenerate(req: Request, res: Response, next: Function) {
     try {
-      const prompt = req.body.prompt;
-      const tokens = parseInt(req.body.tokens, 10);
-      const response: AxiosResponse<any, any> | { error: any } =
-        await GenerateDAO.generate({
-          prompt: prompt,
-          maxTokens: tokens,
-        });
+      const prompt: string = req.body.prompt;
+      const tokens: number = parseInt(req.body.tokens, 10);
+      const response:
+        | AxiosResponse<any, any>
+        | { error: any }
+        | { result: string } = await GenerateDAO.generate({
+        prompt: prompt,
+        maxTokens: tokens,
+      });
       if (response) {
-        console.log(response);
         res.json(response);
       }
     } catch (e: any) {

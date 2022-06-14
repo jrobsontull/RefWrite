@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import Header from '../general/Header';
 import GenerateAPI from '../../utils/generate.api';
 import { v4 as uuid } from 'uuid';
 
 // Types
-import { prompt } from '../../global.types';
+import { prompt, generalOpts } from '../../global.types';
 
 // Components
 import AddBlockBtn from '../general/AddBlockBtn';
@@ -14,11 +14,28 @@ const Create = () => {
   // Available prompts
   const [prompts, setPrompts] = useState<prompt[]>([]);
 
+  // Reference general settings
+  const [generalOpts, setGeneralOpts] = useState<generalOpts>({
+    name: '',
+    job: '',
+    relationship: '',
+    organisation: '',
+  });
+
   // Form states
   const [openSimpleOpts, setOpenSimpleOpts] = useState<boolean>(false);
   const [openCustomGenerate, setOpenCustomGenerate] = useState<boolean>(false);
   const [openSimpleGenerate, setOpenSimpleGenerate] = useState<boolean>(false);
   const [promptsInUse, setPromptsInUse] = useState<any[]>([]);
+
+  // Set general reference options
+  const updateGeneralOpts: Function = (
+    type: string,
+    event: ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    const newValue: string = event.target.value;
+    setGeneralOpts((prevOpts) => ({ ...prevOpts, [type]: newValue }));
+  };
 
   // Toggle openning of prompt panels
   const toggleOptsDialog: Function = (openGen: string): void => {
@@ -72,7 +89,7 @@ const Create = () => {
 
     if (foundIndex || foundIndex === 0) {
       let updatedPromptsInUse: prompt[] = [...promptsInUse]; // shallow copy
-      let updatedPrompt = { ...updatedPromptsInUse[foundIndex] }; // get element for mutation
+      let updatedPrompt: prompt = { ...updatedPromptsInUse[foundIndex] }; // get element for mutation
       updatedPrompt.output = newOuput; // update output text
       updatedPromptsInUse[foundIndex] = updatedPrompt;
       setPromptsInUse(updatedPromptsInUse);
@@ -81,12 +98,14 @@ const Create = () => {
 
   useEffect(() => {
     GenerateAPI.getCurrentPrompts().then((response) => {
-      if (
+      if (!response) {
+        console.log('Do some error handling here.');
+      } else if (
         Object.prototype.hasOwnProperty.call(response, "'error'") ||
         Object.prototype.hasOwnProperty.call(response, 'error')
       ) {
         console.log('An error occurred: ' + response.error);
-      } else {
+      } else if (response.prompts) {
         setPrompts(response.prompts);
       }
     });
@@ -110,12 +129,32 @@ const Create = () => {
               relationship with them.
             </p>
             <div className="input-row">
-              <input type="text" placeholder="First name" id="firstName" />
-              <input type="text" placeholder="Job" id="job" />
+              <input
+                type="text"
+                placeholder="First name"
+                id="firstName"
+                onChange={(e) => updateGeneralOpts('name', e)}
+              />
+              <input
+                type="text"
+                placeholder="Job"
+                id="job"
+                onChange={(e) => updateGeneralOpts('job', e)}
+              />
             </div>
             <div className="input-row">
-              <input type="text" placeholder="Relationship" id="relationship" />
-              <input type="text" placeholder="Organisation" id="organisation" />
+              <input
+                type="text"
+                placeholder="Relationship"
+                id="relationship"
+                onChange={(e) => updateGeneralOpts('relationship', e)}
+              />
+              <input
+                type="text"
+                placeholder="Organisation"
+                id="organisation"
+                onChange={(e) => updateGeneralOpts('organisation', e)}
+              />
             </div>
           </div>
           <div className="box generation-settings">
