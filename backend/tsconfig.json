@@ -8,6 +8,7 @@
     "outDir": "./dist",
     "rootDir": "./",
     "baseUrl": "./",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2021.String"]
   }
 }

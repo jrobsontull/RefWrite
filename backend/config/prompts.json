@@ -9,7 +9,9 @@
         { "reqVarName": "job", "ref": "JOB" }
       ],
       "auto": true,
-      "identifier": "intro-1"
+      "identifier": "intro-1",
+      "maxTokens": 60,
+      "temperature": 0
     },
     {
       "title": "Intro block (custom)",
@@ -23,7 +25,9 @@
         { "reqVarName": "traits", "ref": "TRAITS" }
       ],
       "auto": false,
-      "identifier": "intro-2"
+      "identifier": "intro-2",
+      "maxTokens": 20,
+      "temperature": 0
     },
     {
       "title": "Intro block 2 (auto)",
@@ -34,7 +38,9 @@
         { "reqVarName": "job", "ref": "JOB" }
       ],
       "auto": true,
-      "identifier": "intro-3"
+      "identifier": "intro-3",
+      "maxTokens": 20,
+      "temperature": 0
     },
     {
       "title": "Intro block 2 (custom)",
@@ -48,7 +54,9 @@
         { "reqVarName": "traits", "ref": "TRAITS" }
       ],
       "auto": false,
-      "identifier": "intro-4"
+      "identifier": "intro-4",
+      "maxTokens": 20,
+      "temperature": 0
     }
   ]
 }

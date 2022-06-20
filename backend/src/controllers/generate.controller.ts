@@ -3,7 +3,14 @@ import { AxiosResponse } from 'axios';
 import GenerateDAO from '../dao/generateDAO';
 
 // Import types
-import { prompt } from '../types/global.types';
+import { prompt, promptRequiresElement } from '../types/global.types';
+
+// Interfaces
+interface generateParamsItem {
+  name: string;
+  value: string;
+  ref: string;
+}
 
 // Global vars
 let prompts: prompt[] = [];
@@ -73,17 +80,66 @@ class GenerateController {
 
   static async apiGenerate(req: Request, res: Response, next: Function) {
     try {
-      const prompt: string = req.body.prompt;
-      const tokens: number = parseInt(req.body.tokens, 10);
-      const response:
-        | AxiosResponse<any, any>
-        | { error: any }
-        | { result: string } = await GenerateDAO.generate({
-        prompt: prompt,
-        maxTokens: tokens,
-      });
-      if (response) {
-        res.json(response);
+      const promptId: string = req.body.promptId; // get prompt identifier
+
+      let promptInUse: prompt | null = null;
+      for (const i in prompts) {
+        if (prompts[i].identifier === promptId) {
+          promptInUse = prompts[i];
+        }
+      }
+
+      if (promptInUse) {
+        // Valid prompt identifier found
+        const requiredProps: promptRequiresElement[] = promptInUse.requires;
+        let generateParams: generateParamsItem[] | null = [];
+        for (const i in requiredProps) {
+          const propName: string = requiredProps[i].reqVarName;
+          const ref: string = requiredProps[i].ref;
+          if (req.body[propName] && propName !== 'traits') {
+            // Required prop present in body
+            generateParams.push({
+              name: propName,
+              value: req.body[propName],
+              ref: ref,
+            });
+          } else {
+            // Bad request -> return
+            generateParams = null;
+            break;
+          }
+        }
+
+        if (generateParams) {
+          // All required paramaters for prompt generation available
+          let finalPrompt: string = promptInUse.prompt;
+
+          generateParams.forEach((param) => {
+            finalPrompt = finalPrompt.replaceAll(param.ref, param.value);
+          });
+
+          const response:
+            | AxiosResponse<any, any>
+            | { error: any }
+            | { result: string } = await GenerateDAO.generate({
+            prompt: finalPrompt,
+            maxTokens: promptInUse.maxTokens,
+            temperature: promptInUse.temperature,
+          });
+          if (response) {
+            res.json(response);
+          }
+        } else {
+          // Invalid body - missing certain required params
+          res.status(400).json({
+            error: 'Missing prompt paramaters. Unable to process request.',
+          });
+        }
+      } else {
+        // Invalid request
+        res.status(400).json({
+          error: 'Missing prompt identifier. Unable to process request.',
+        });
       }
     } catch (e: any) {
       console.error(
