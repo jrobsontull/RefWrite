@@ -16,3 +16,10 @@ export interface promptRequiresElement {
   reqVarName: string;
   ref: string;
 }
+
+export interface generalOpts {
+  name: string;
+  job: string;
+  relationship: string;
+  organisation: string;
+}
