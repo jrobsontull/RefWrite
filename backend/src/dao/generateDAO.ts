@@ -8,6 +8,7 @@ interface generateProps {
   maxTokens: number;
   temperature?: number;
   prompt: string;
+  stopChar?: string;
 }
 
 interface generateBody {
@@ -70,6 +71,7 @@ class GenerateDAO {
     maxTokens,
     temperature = 0,
     prompt,
+    stopChar = '.\n',
   }: generateProps) {
     try {
       const body: generateBody = {
@@ -79,14 +81,13 @@ class GenerateDAO {
         prompt: prompt,
         top_p: 1,
         n: 1,
-        stop: '.\n',
       };
 
       const response: AxiosResponse = await http.post('/completions', body);
       if (response && response.status === 200) {
         return { result: response.data.choices[0].text };
       } else {
-        return { error: 'rest' };
+        return { error: 'Failed to get good response from API.' };
       }
     } catch (e: any) {
       console.error(
