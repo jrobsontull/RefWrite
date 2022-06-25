@@ -10,6 +10,7 @@ export interface prompt {
   placeholder?: string;
   maxTokens: number;
   temperature: number;
+  model: string;
 }
 
 export interface promptRequiresElement {
@@ -18,7 +19,7 @@ export interface promptRequiresElement {
 }
 
 export interface generalOpts {
-  name: string;
+  firstName: string;
   job: string;
   relationship: string;
   organisation: string;

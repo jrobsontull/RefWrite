@@ -3,18 +3,9 @@ import { AxiosResponse } from 'axios';
 import GenerateDAO from '../dao/generateDAO';
 
 // Import types
-import {
-  prompt,
-  promptRequiresElement,
-  generalOpts,
-} from '../types/global.types';
+import { prompt, generalOpts } from '../types/global.types';
 
 // Interfaces
-interface generateParamsItem {
-  name: string;
-  value: string;
-  ref: string;
-}
 
 // Global vars
 let prompts: prompt[] = [];
@@ -98,54 +89,41 @@ class GenerateController {
         const generalOpts: generalOpts | null = req.body.generalOpts;
         if (generalOpts) {
           const prompt: string | null = req.body.prompt;
+
+          if (!prompt) {
+            // Use prompt from prompts.json and build final prompt
+            let finalPrompt: string = promptInUse.prompt;
+            finalPrompt = replaceGeneralOpts(generalOpts, finalPrompt); // replace general opts
+
+            // Use switch for prompt-specific replacements
+            switch (promptInUse.identifier) {
+              case 'intro-3':
+                const traits: string[] = req.body.userInput;
+                const joinedTraits = traits.join(', ');
+                finalPrompt.replace('TRAITS', joinedTraits);
+                break;
+            }
+
+            // Send request to openAI
+            const completionResponse = await GenerateDAO.generate({
+              model: promptInUse.model,
+              maxTokens: promptInUse.maxTokens,
+              temperature: promptInUse.temperature,
+              prompt: finalPrompt,
+            });
+
+            if (completionResponse) {
+              res.json(completionResponse);
+            }
+          } else {
+            // Use prompt for basis of next generation
+          }
         } else {
           // Invalid request
           res.status(400).json({
             error: 'Missing general options. Unable to process request.',
           });
         }
-
-        // const requiredProps: promptRequiresElement[] = promptInUse.requires;
-        // let generateParams: generateParamsItem[] | null = [];
-        // for (const i in requiredProps) {
-        //   const propName: string = requiredProps[i].reqVarName;
-        //   const ref: string = requiredProps[i].ref;
-        //   if (req.body[propName] && propName !== 'traits') {
-        //     // Required prop present in body
-        //     generateParams.push({
-        //       name: propName,
-        //       value: req.body[propName],
-        //       ref: ref,
-        //     });
-        //   } else {
-        //     // Bad request -> return
-        //     generateParams = null;
-        //     break;
-        //   }
-        // }
-        // if (generateParams) {
-        //   // All required paramaters for prompt generation available
-        //   let finalPrompt: string = promptInUse.prompt;
-        //   generateParams.forEach((param) => {
-        //     finalPrompt = finalPrompt.replaceAll(param.ref, param.value);
-        //   });
-        //   const response:
-        //     | AxiosResponse<any, any>
-        //     | { error: any }
-        //     | { result: string } = await GenerateDAO.generate({
-        //     prompt: finalPrompt,
-        //     maxTokens: promptInUse.maxTokens,
-        //     temperature: promptInUse.temperature,
-        //   });
-        //   if (response) {
-        //     res.json(response);
-        //   }
-        // } else {
-        //   // Invalid body - missing certain required params
-        //   res.status(400).json({
-        //     error: 'Missing prompt paramaters. Unable to process request.',
-        //   });
-        // }
       } else {
         // Invalid request
         res.status(400).json({
@@ -156,8 +134,21 @@ class GenerateController {
       console.error(
         '[PromptController]: Failed to generate text from prompt. ' + e
       );
+      res.status(500).json({ error: e });
     }
   }
 }
+
+// Replaces the generalOpts fields in a given prompt and returns the final string
+const replaceGeneralOpts = (
+  generalOpts: generalOpts,
+  prompt: string
+): string => {
+  let finalPrompt: string = prompt;
+  for (let [key, value] of Object.entries(generalOpts)) {
+    finalPrompt = finalPrompt.replaceAll(key.toUpperCase(), value);
+  }
+  return finalPrompt;
+};
 
 export default GenerateController;
