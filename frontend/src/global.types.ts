@@ -18,7 +18,7 @@ export interface prompt {
 }
 
 export interface generalOpts {
-  name: string;
+  firstName: string;
   job: string;
   relationship: string;
   organisation: string;

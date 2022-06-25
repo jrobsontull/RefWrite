@@ -21,8 +21,23 @@ class GenerateAPI {
   static async generate(
     promptId: string,
     generalOpts: generalOpts,
-    input?: string
-  ) {}
+    userInput?: string
+  ) {
+    const url: string = '/api/v1/generate/prompt';
+    const body = {
+      promptId: promptId,
+      generalOpts: generalOpts,
+    };
+    const response: AxiosResponse<any, any> | null = await postRequest(
+      url,
+      body
+    );
+    if (response) {
+      return response.data;
+    } else {
+      return null;
+    }
+  }
 }
 
 async function getRequest(
@@ -48,7 +63,7 @@ async function postRequest(url: string, payload: Object) {
     const response: AxiosResponse = await http.post(url, body);
 
     if (response.status === 200) {
-      return response.data;
+      return response;
     } else {
       return null;
     }

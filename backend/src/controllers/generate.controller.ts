@@ -113,7 +113,10 @@ class GenerateController {
             });
 
             if (completionResponse) {
-              res.json(completionResponse);
+              const result = completionResponse.result
+                .trim()
+                .replaceAll('\n', '');
+              res.json({ result: result });
             }
           } else {
             // Use prompt for basis of next generation

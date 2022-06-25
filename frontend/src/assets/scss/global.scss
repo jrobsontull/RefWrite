@@ -47,6 +47,15 @@ body {
   background-color: $background-color;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
 .btn {
   font-size: 16px;
   padding: 12px 36px;
@@ -54,10 +63,15 @@ body {
   font-weight: 300;
   text-align: center;
   transition: background-color 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .btn:hover {
   cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 .btn.primary {

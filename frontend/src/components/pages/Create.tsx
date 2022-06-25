@@ -16,7 +16,7 @@ const Create = () => {
 
   // Reference general settings
   const [generalOpts, setGeneralOpts] = useState<generalOpts>({
-    name: '',
+    firstName: '',
     job: '',
     relationship: '',
     organisation: '',
@@ -56,17 +56,17 @@ const Create = () => {
   };
 
   // For generating a reference from the simple options
-  function generateSimple(): void {
+  const generateSimple = (): void => {
     openSimplePrompts();
-  }
+  };
 
   // For opening the simple generate panel
-  function openSimplePrompts(): void {
+  const openSimplePrompts = (): void => {
     setOpenSimpleGenerate(true);
-  }
+  };
 
   // Add custom block
-  function addCustomBlock(identifier: string): void {
+  const addCustomBlock = (identifier: string): void => {
     let selectedPrompt: prompt | undefined = prompts.find(
       (prompt: prompt) => prompt.identifier === identifier
     );
@@ -75,10 +75,10 @@ const Create = () => {
       selectedPrompt.uniqueId = uuid();
       setPromptsInUse((current) => [...current, selectedPrompt]);
     }
-  }
+  };
 
   // On custom block ouput update
-  function updateOutput(promptId: string, newOuput: string) {
+  const updateOutput = (promptId: string, newOuput: string) => {
     let foundIndex: number | null = null;
     promptsInUse.forEach(function (prompt: prompt, i: number) {
       if (prompt.uniqueId === promptId) {
@@ -94,7 +94,7 @@ const Create = () => {
       updatedPromptsInUse[foundIndex] = updatedPrompt;
       setPromptsInUse(updatedPromptsInUse);
     }
-  }
+  };
 
   useEffect(() => {
     GenerateAPI.getCurrentPrompts().then((response) => {
@@ -133,7 +133,7 @@ const Create = () => {
                 type="text"
                 placeholder="First name"
                 id="firstName"
-                onChange={(e) => updateGeneralOpts('name', e)}
+                onChange={(e) => updateGeneralOpts('firstName', e)}
               />
               <input
                 type="text"
@@ -162,7 +162,9 @@ const Create = () => {
             <div className="btn-row">
               <div
                 className={
-                  openSimpleOpts ? 'btn primary selected' : 'btn primary'
+                  openSimpleOpts
+                    ? 'btn primary selected noselect'
+                    : 'btn primary noselect'
                 }
                 id="simple"
                 onClick={() => toggleOptsDialog('simple')}
@@ -171,7 +173,9 @@ const Create = () => {
               </div>
               <div
                 className={
-                  openCustomGenerate ? 'btn primary selected' : 'btn primary'
+                  openCustomGenerate
+                    ? 'btn primary selected noselect'
+                    : 'btn primary noselect'
                 }
                 id="custom"
                 onClick={() => toggleOptsDialog('custom')}
@@ -190,7 +194,7 @@ const Create = () => {
                   <option value="academic">Academic reference</option>
                 </select>
                 <div
-                  className="btn primary generate"
+                  className="btn primary generate noselect"
                   onClick={() => generateSimple()}
                 >
                   Generate
@@ -209,7 +213,8 @@ const Create = () => {
                     <GenerationBlock
                       key={prompt.uniqueId}
                       prompt={prompt}
-                      cb={updateOutput}
+                      updateOutput={updateOutput}
+                      generalOpts={generalOpts}
                     />
                   ))}
                 </ul>
@@ -226,10 +231,10 @@ const Create = () => {
 
         <div className="right">
           <div className="action-btns">
-            <div className="btn primary" id="save-changes">
+            <div className="btn primary noselect" id="save-changes">
               Save changes
             </div>
-            <div className="btn primary" id="download-pdf">
+            <div className="btn primary noselect" id="download-pdf">
               Download PDF
             </div>
           </div>

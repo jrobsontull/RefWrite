@@ -17,10 +17,10 @@ const AddBlockBtn = (props: {
   return (
     <div className="add-block">
       <div
-        className="btn primary add-block-btn"
+        className="btn primary add-block-btn noselect"
         onClick={() => setOpenPopup(true)}
       >
-        <img src={AddBlock} alt="Add button" />
+        <img src={AddBlock} alt="Add symbol" />
         Add block
       </div>
       {openPopup ? (

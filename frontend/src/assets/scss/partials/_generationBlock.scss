@@ -59,7 +59,12 @@
             justify-content: center;
             padding: 6px 12px;
             transition: all 0.25s;
+            transition: transform 0.2s ease;
             text-align: center;
+          }
+
+          div:active {
+            transform: scale(0.95);
           }
 
           .generate-btn {
