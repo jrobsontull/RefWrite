@@ -4,10 +4,6 @@
       "title": "Intro block (auto)",
       "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB. Also talk about FIRSTNAME's role within ORGANISATION.",
       "type": "intro",
-      "requires": [
-        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
-        { "reqVarName": "job", "ref": "JOB" }
-      ],
       "auto": true,
       "identifier": "intro-1",
       "maxTokens": 150,
@@ -19,10 +15,6 @@
       "title": "Intro block 2 (auto)",
       "prompt": "Write an introductory paragraph about FIRSTNAME's work as a JOB. Describe their role at ORGANISATION and your relationship to them.",
       "type": "intro",
-      "requires": [
-        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
-        { "reqVarName": "job", "ref": "JOB" }
-      ],
       "auto": true,
       "identifier": "intro-2",
       "maxTokens": 150,
@@ -35,11 +27,6 @@
       "description": "Write 3 things that summarise John as a person.",
       "placeholder": "Hard-working, reliable, good interpersonal skills",
       "type": "intro",
-      "requires": [
-        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
-        { "reqVarName": "job", "ref": "JOB" },
-        { "reqVarName": "traits", "ref": "TRAITS" }
-      ],
       "auto": false,
       "identifier": "intro-3",
       "maxTokens": 150,
@@ -52,11 +39,6 @@
       "description": "Write 3 things that summarise John as a person.",
       "placeholder": "hard-working, reliable, good interpersonal skills",
       "type": "intro",
-      "requires": [
-        { "reqVarName": "firstName", "ref": "FIRSTNAME" },
-        { "reqVarName": "job", "ref": "JOB" },
-        { "reqVarName": "traits", "ref": "TRAITS" }
-      ],
       "auto": false,
       "identifier": "intro-4",
       "maxTokens": 20,

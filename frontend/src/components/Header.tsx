@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import Logo from '../../assets/img/logo.svg';
-import Light from '../../assets/img/sun_icon.svg';
-import Dark from '../../assets/img/moon_icon.svg';
+import Logo from '../assets/img/logo.svg';
+import Light from '../assets/img/sun_icon.svg';
+import Dark from '../assets/img/moon_icon.svg';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const [openMore, setOpenMore] = useState(false);
 
   return (

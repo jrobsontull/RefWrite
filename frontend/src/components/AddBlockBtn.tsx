@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { prompt } from '../../global.types';
+import { prompt } from '../global.types';
 
-import AddBlock from '../../assets/img/add_block_icon.svg';
+import AddBlock from '../assets/img/add_block_icon.svg';
 
 const AddBlockBtn = (props: {
   availablePrompts: prompt[];

@@ -1,16 +1,16 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import Header from '../general/Header';
-import GenerateAPI from '../../utils/generate.api';
+import Header from '../components/Header';
+import GenerateAPI from '../utils/generate.api';
 import { v4 as uuid } from 'uuid';
 
 // Types
-import { prompt, generalOpts } from '../../global.types';
+import { prompt, generalOpts } from '../global.types';
 
 // Components
-import AddBlockBtn from '../general/AddBlockBtn';
-import GenerationBlock from '../general/GenerationBlock';
+import AddBlockBtn from '../components/AddBlockBtn';
+import GenerationBlock from '../components/GenerationBlock';
 
-const Create = () => {
+const Create = (): JSX.Element => {
   // Available prompts
   const [prompts, setPrompts] = useState<prompt[]>([]);
 

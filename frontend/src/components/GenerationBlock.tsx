@@ -1,9 +1,9 @@
-import { prompt, generalOpts } from '../../global.types';
+import { prompt, generalOpts } from '../global.types';
 import { useState } from 'react';
 
 import { TextareaUL } from 'react-textarea-list';
 import TextareaAutosize from 'react-textarea-autosize';
-import GenerateAPI from '../../utils/generate.api';
+import GenerateAPI from '../utils/generate.api';
 
 function GenerationBlock(props: {
   prompt: prompt;

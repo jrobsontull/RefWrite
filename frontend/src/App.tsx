@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routing from './components/general/Routing';
+import Routing from './pages/Routing';
 
 import './assets/css/global.css';
 

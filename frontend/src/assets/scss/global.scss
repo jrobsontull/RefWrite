@@ -33,14 +33,22 @@ $gray-800: #314047;
 $border-radius: 6px;
 
 // Partial imports
-@import './partials/_create.scss';
-@import './partials/_header.scss';
-@import './partials/_addBlockBtn.scss';
-@import './partials/generationBlock.scss';
+@import './partials/pages/_create.scss';
+@import './partials/components/_header.scss';
+@import './partials/components/_addBlockBtn.scss';
+@import './partials/components/generationBlock.scss';
+@import './partials/pages/_login.scss';
 
 // Global styling
 * {
   font-family: 'Inter', sans-serif;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
 }
 
 body {
