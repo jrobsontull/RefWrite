@@ -41,7 +41,7 @@ class GenerateDAO {
   }
 
   // Set up axios base
-  static async initiateHTTP() {
+  static async initialiseAPI() {
     try {
       const baseURL: string = 'https://api.openai.com/v1/';
       const apiKey: string = process.env.OPENAI_API_KEY || null;
@@ -54,7 +54,7 @@ class GenerateDAO {
             Authorization: 'Bearer ' + apiKey,
           },
         });
-        console.log('[GenerateDAO]: Initialised prompt API HTTP.');
+        console.log('[GenerateDAO]: Valid API key. Initialised prompt API.');
       } else {
         throw new Error('OpenAI API key missing.');
       }
