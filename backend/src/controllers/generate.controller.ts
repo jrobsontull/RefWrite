@@ -13,7 +13,7 @@ let prompts: prompt[] = [];
 // Controller
 class GenerateController {
   // Initialise available prompts from config
-  static async initiliasePrompts() {
+  static initiliasePrompts = async (): Promise<void> => {
     try {
       prompts = await GenerateDAO.readPromptsJSON();
       if (prompts) {
@@ -28,10 +28,14 @@ class GenerateController {
         '[GenerateController]: Failed to initialise prompts config. ' + e
       );
     }
-  }
+  };
 
   // Update available prompts from config on request
-  static async apiUpdatePrompts(req: Request, res: Response, next: Function) {
+  static apiUpdatePrompts = async (
+    req: Request,
+    res: Response,
+    next: Function
+  ): Promise<void> => {
     try {
       prompts = await GenerateDAO.readPromptsJSON();
       if (prompts) {
@@ -53,14 +57,14 @@ class GenerateController {
         .status(500)
         .json({ error: 'Failed to reinitialise prompts config. ' + e.message });
     }
-  }
+  };
 
   // Get list of available prompts
-  static async apiGetCurrentPrompts(
+  static apiGetCurrentPrompts = async (
     req: Request,
     res: Response,
     next: Function
-  ) {
+  ): Promise<void> => {
     try {
       res.json({ prompts: prompts });
     } catch (e: any) {
@@ -71,9 +75,13 @@ class GenerateController {
         .status(500)
         .json({ error: 'Failed to reinitialise prompts config. ' + e.message });
     }
-  }
+  };
 
-  static async apiGenerate(req: Request, res: Response, next: Function) {
+  static apiGenerate = async (
+    req: Request,
+    res: Response,
+    next: Function
+  ): Promise<void> => {
     try {
       const promptId: string = req.body.promptId; // get prompt identifier
 
@@ -139,7 +147,7 @@ class GenerateController {
       );
       res.status(500).json({ error: e });
     }
-  }
+  };
 }
 
 // Replaces the generalOpts fields in a given prompt and returns the final string

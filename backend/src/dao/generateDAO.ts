@@ -26,7 +26,7 @@ let http: AxiosInstance;
 
 class GenerateDAO {
   // Read prompts.json config and return parsed JSON
-  static async readPromptsJSON() {
+  static readPromptsJSON = async (): Promise<prompt[]> => {
     try {
       const stream: string = await fs.readFile(
         './config/prompts.json',
@@ -38,10 +38,10 @@ class GenerateDAO {
       console.error('[GenerateDAO]: Error reading prompts.json config. ' + e);
       return null;
     }
-  }
+  };
 
   // Set up axios base
-  static async initialiseAPI() {
+  static initialiseAPI = async (): Promise<void> => {
     try {
       const baseURL: string = 'https://api.openai.com/v1/';
       const apiKey: string = process.env.OPENAI_API_KEY || null;
@@ -63,16 +63,16 @@ class GenerateDAO {
         '[GenerateDAO]: Failed to initialise prompt API. ' + e.message
       );
     }
-  }
+  };
 
   // Generate text from prompt
-  static async generate({
+  static generate = async ({
     model = 'text-curie-001',
     maxTokens,
     temperature = 0,
     prompt,
     stopChar = '.\n',
-  }: generateProps) {
+  }: generateProps) => {
     try {
       const body: generateBody = {
         model: model,
@@ -96,7 +96,7 @@ class GenerateDAO {
 
       return { error: e.message };
     }
-  }
+  };
 }
 
 export default GenerateDAO;

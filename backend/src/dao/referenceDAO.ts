@@ -3,7 +3,7 @@ import { MongoClient, Collection } from 'mongodb';
 let users: Collection;
 
 class ReferenceDAO {
-  static async injectedAuthDb(conn: MongoClient) {
+  static injectedAuthDb = async (conn: MongoClient): Promise<void> => {
     if (users) {
       return;
     } else {
@@ -22,7 +22,7 @@ class ReferenceDAO {
         );
       }
     }
-  }
+  };
 }
 
 export default ReferenceDAO;

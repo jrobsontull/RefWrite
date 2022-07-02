@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongodb';
+
 // Interfaces
 export interface prompt {
   title: string;
@@ -23,4 +25,10 @@ export interface generalOpts {
   job: string;
   relationship: string;
   organisation: string;
+}
+
+export interface User {
+  _id: ObjectId;
+  permission: string;
+  auth: string | null;
 }
