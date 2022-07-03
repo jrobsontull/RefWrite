@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 
 // Middleware imports
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 // Route imports
 import generate from './routes/generate.route';
@@ -16,6 +17,7 @@ const app: Express = express();
 // Set up middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Set up routing
 app.use('/api/v1/generate', generate);

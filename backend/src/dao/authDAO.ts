@@ -61,13 +61,50 @@ class AuthDAO {
 
       const user: User = {
         _id: response.insertedId,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         permission: permission,
-        auth: null,
       };
 
       return user;
     } catch (e) {
       console.error('[AuthDAO]: Failed to register user. ' + e);
+      return { error: e };
+    }
+  };
+
+  static loginUser = async (email: string, password: string) => {
+    try {
+      // See if user exists
+      const userFound: WithId<Document> = await users.findOne({ email: email });
+
+      if (!userFound) {
+        // No account with that email exists
+        return { error: 'Invalid username or password.' };
+      }
+
+      // Check password validity
+      const validPass: boolean = await bcrypt.compare(
+        password,
+        userFound.password
+      );
+
+      if (!validPass) {
+        return { error: 'Invalid username or password.' };
+      }
+
+      const user: User = {
+        _id: userFound._id,
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
+        email: userFound.email,
+        permission: userFound.permission,
+      };
+
+      return user;
+    } catch (e) {
+      console.error('[AuthDAO]: Failed to login user. ' + e);
       return { error: e };
     }
   };
