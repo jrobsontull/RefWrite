@@ -17,6 +17,8 @@ class AuthDAO {
         }
 
         users = await conn.db(dbType).collection('users');
+
+        console.log('[AuthDAO]: Database loaded successfully.');
       } catch (e) {
         console.error(
           '[AuthDAO]: Unable to establish a connection handle in AuthDAO. ' + e

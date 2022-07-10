@@ -15,6 +15,8 @@ class ReferenceDAO {
         }
 
         users = await conn.db(dbType).collection('references');
+
+        console.log('[ReferenceDAO]: Database loaded successfully.');
       } catch (e) {
         console.error(
           '[ReferenceDAO]: Unable to establish a connection handle in ReferencesDAO. ' +

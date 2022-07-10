@@ -1,27 +1,36 @@
 import app from './server';
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
+import { checkFileExistsSync } from './utils/fileExists';
 
 import GenerateController from './controllers/generate.controller';
 import GenerateDAO from './dao/generateDAO';
 import AuthDAO from './dao/authDAO';
 import ReferenceDAO from './dao/referenceDAO';
 
-// Load environmental variables
-dotenv.config();
+console.log('Starting up...\n');
 
-// Set up database connection
+// Check if .env file exists
+const envExists = checkFileExistsSync('./.env');
+if (envExists) {
+  // Load environmental variables
+  dotenv.config();
+} else {
+  console.error('⚡️ [Server]: No .env file exits. Exiting...');
+  process.exit(1);
+}
+
+// Set up database connection config
 let dbUri: string = process.env.MONGO_DB_URI_DEV;
-
 if (process.env.NODE_ENV === 'production') {
   dbUri = process.env.MONGO_DB_URI_PRODUCTION;
 }
-
 const mongoClient: MongoClient = new MongoClient(dbUri, {
   maxPoolSize: 30,
   wtimeoutMS: 2500,
 });
 
+// Establish connection
 mongoClient
   .connect()
   .catch((err) => {
@@ -43,6 +52,8 @@ mongoClient
     // Start web server
     const port: number = parseInt(process.env.PORT, 10) || 8000;
     app.listen(port, () => {
-      console.log('⚡️ [Server]: Backend running at http://localhost:' + port);
+      console.log(
+        '\n⚡️ [Server]: Backend running at http://localhost:' + port + '\n'
+      );
     });
   });

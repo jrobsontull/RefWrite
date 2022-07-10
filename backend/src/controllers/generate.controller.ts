@@ -17,7 +17,7 @@ class GenerateController {
     try {
       prompts = await GenerateDAO.readPromptsJSON();
       if (prompts) {
-        console.log('[GenerateController]: Prompts config reloaded.');
+        console.log('[GenerateController]: Prompts config loaded.');
       } else {
         console.error(
           '[GenerateController]: Failed to initialise prompts config.'
