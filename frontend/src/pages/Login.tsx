@@ -34,7 +34,7 @@ const Login = (): JSX.Element => {
               fill="#CBD5E1"
             />
           </svg>
-          <input type="email" placeholder="E-mail address" />
+          <input type="email" placeholder="E-mail address" tabIndex={1} />
         </div>
         <div className="input-row">
           <svg
@@ -48,7 +48,7 @@ const Login = (): JSX.Element => {
               fill="#CBD5E1"
             />
           </svg>
-          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Password" tabIndex={2} />
         </div>
         <p id="forgot-pass">
           <Link to={'/forgot-password'}>Forgot password?</Link>
