@@ -14,11 +14,11 @@ const http: AxiosInstance = axios.create({
   },
 });
 
-const getRequest = async (
-  url: string
-): Promise<AxiosResponse<any, any> | null> => {
+const getRequest = async (url: string): Promise<AxiosResponse | null> => {
   try {
-    const response: AxiosResponse<any, any> = await http.get(url);
+    const response: AxiosResponse = await http.get(url, {
+      withCredentials: true,
+    });
 
     if (response.status === 200) {
       return response;
@@ -34,10 +34,12 @@ const getRequest = async (
 const postRequest = async (
   url: string,
   payload: Object
-): Promise<AxiosResponse<any, any> | null> => {
+): Promise<AxiosResponse | null> => {
   try {
     const body: Object = payload;
-    const response: AxiosResponse = await http.post(url, body);
+    const response: AxiosResponse = await http.post(url, body, {
+      withCredentials: true,
+    });
 
     if (response.status === 200) {
       return response;

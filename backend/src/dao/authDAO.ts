@@ -1,8 +1,14 @@
-import { MongoClient, Collection, WithId, Document } from 'mongodb';
+import {
+  MongoClient,
+  Collection,
+  WithId,
+  Document,
+  InsertOneResult,
+} from 'mongodb';
 import bcrypt from 'bcrypt';
 import { User } from '../types/global.types';
 
-let users: Collection;
+let users: Collection<Document>;
 
 class AuthDAO {
   static injectedAuthDb = async (conn: MongoClient): Promise<void> => {
@@ -33,7 +39,7 @@ class AuthDAO {
     firstName: string,
     lastName: string,
     permission: string = 'user'
-  ) => {
+  ): Promise<User | { error: any }> => {
     try {
       const emailExists: WithId<Document> = await users.findOne({
         email: email,
@@ -59,7 +65,9 @@ class AuthDAO {
         dateCreated: new Date(),
       };
 
-      const response = await users.insertOne(document);
+      const response: InsertOneResult<Document> = await users.insertOne(
+        document
+      );
 
       const user: User = {
         _id: response.insertedId,
@@ -76,7 +84,10 @@ class AuthDAO {
     }
   };
 
-  static loginUser = async (email: string, password: string) => {
+  static loginUser = async (
+    email: string,
+    password: string
+  ): Promise<User | { error: any }> => {
     try {
       // See if user exists
       const userFound: WithId<Document> = await users.findOne({ email: email });

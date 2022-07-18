@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthAPI from '../utils/auth.api';
 
+import Spinner from '../components/Spinner';
+
 const Register = (): JSX.Element => {
   const [newUser, setNewUser] = useState({
     email: null,
@@ -10,12 +12,31 @@ const Register = (): JSX.Element => {
     pass: null,
     confirmPass: null,
   });
+  const [isRequesting, setIsRequesting] = useState(false);
 
   const updateGenericProp = (newValue: string, propName: string) => {
     setNewUser((prevDetails) => ({ ...prevDetails, [propName]: newValue }));
   };
 
-  const submitHandler = () => {};
+  const submitHandler = () => {
+    setIsRequesting(true);
+    if (
+      newUser.email &&
+      newUser.firstName &&
+      newUser.lastName &&
+      newUser.pass
+    ) {
+      AuthAPI.registerUser(
+        newUser.email,
+        newUser.firstName,
+        newUser.lastName,
+        newUser.pass
+      ).then((res) => {
+        console.log(res);
+      });
+    }
+    setIsRequesting(false);
+  };
 
   return (
     <div className="register">
@@ -84,7 +105,16 @@ const Register = (): JSX.Element => {
             <Link to={'/'}>Privacy Policy</Link>
           </label>
         </div>
-        <div className="btn primary noselect">Start trial</div>
+
+        {isRequesting ? (
+          <div className="btn primary noselect" onClick={() => submitHandler()}>
+            <Spinner />
+          </div>
+        ) : (
+          <div className="btn primary noselect" onClick={() => submitHandler()}>
+            Start trial
+          </div>
+        )}
       </div>
       <p id="login-msg">
         Have an account already? <Link to={'/login'}>Log in</Link>
